@@ -412,6 +412,28 @@ class ApiRequestHandler(http.server.BaseHTTPRequestHandler):
             self.end_headers()
             return
         if path[0] == "warehouses":
+            '''
+### HTTP POST /api/v1/warehouses
+Creates a new warehouse
+Returns 201 Created
+Content-Type: application/json
+Request body:
+{
+    "id": 1,
+    "code": "ABCDE123",
+    "name": "Ouddorp cargo hub",
+      "address": "Havenweg 21",
+  "zip": "3253 XC",
+  "city": "Ouddorp",
+  "province": "Zuid-Holland",
+  "country": "NL",
+  "contact": {
+    "name": "Erik Tanis",
+    "phone": "0683985627",
+    "email": "eriktanis21@gmail.com"
+  } 
+}
+            '''
             content_length = int(self.headers["Content-Length"])
             post_data = self.rfile.read(content_length)
             new_warehouse = json.loads(post_data.decode())

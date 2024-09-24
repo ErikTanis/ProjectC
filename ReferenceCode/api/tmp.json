@@ -1,0 +1,15 @@
+{
+    "id": int,
+    "code": "string",
+    "name": "string",
+    "address": "string",
+    "zip": "string",
+    "city": "string",
+    "province": "string",
+    "country": "string",
+    "contact": {
+        "name": "string",
+        "phone": "string",
+        "email": "string"
+    }
+}
