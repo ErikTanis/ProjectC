@@ -1,6 +1,7 @@
 import json
 import sys
 import os
+from datetime import datetime
 
 class BaseRepository:
     def __init__(self, path, is_debug):
@@ -22,3 +23,6 @@ class BaseRepository:
             return list()
         with open(self.path, encoding='utf8') as file:
             return json.load(file)
+
+    def get_timestamp(self):
+        return datetime.utcnow().isoformat() + "Z"
