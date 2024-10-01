@@ -8,8 +8,6 @@ class Warehouse:
         self.city = city
         self.province = province
         self.country = country
-        self.contact_name = contact['name']
-        self.contact_phone = contact['phone']
-        self.contact_email = contact['email']
+        self.contact = contact  ## contact contains contact_name, contact_email, contact_phone
         self.created_at = created_at
         self.updated_at = updated_at
