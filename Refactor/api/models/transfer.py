@@ -1,21 +1,13 @@
-from django.db import models
+class Transfer:
+    def __init__(self, reference, transfer_from, transfer_to, transfer_status, created_at, updated_at):
+        self.reference = reference
+        self.transfer_from = transfer_from
+        self.transfer_to = transfer_to
+        self.transfer_status = transfer_status
+        self.created_at = created_at
+        self.updated_at = updated_at
 
-class Transfer(models.Model):
-    id = models.AutoField(primary_key=True)
-    reference = models.CharField(max_length=20)
-    transfer_from = models.IntegerField(null=True, blank=True)
-    transfer_to = models.IntegerField()
-    transfer_status = models.CharField(max_length=20)
-    created_at = models.DateTimeField()
-    updated_at = models.DateTimeField()
-
-    def __str__(self):
-        return self.reference
-
-class TransferItem(models.Model):
-    transfer = models.ForeignKey(Transfer, related_name='items', on_delete=models.CASCADE)
-    item_id = models.CharField(max_length=20)
-    amount = models.IntegerField()
-
-    def __str__(self):
-        return f"{self.item_id} - {self.amount}"
+class TransferItem:
+    def __init__(self, item_id, amount):
+        self.item_id = item_id
+        self.amount = amount
