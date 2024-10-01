@@ -9,7 +9,7 @@ class WarehousesRepository(BaseRepository):
         return self.warehouses
 
     def get(self, warehouse_id):
-        for x in self.data:
+        for x in self.warehouses:
             if x["id"] == warehouse_id:
                 return x
         return None
@@ -17,7 +17,7 @@ class WarehousesRepository(BaseRepository):
     def add(self, warehouse):
         warehouse["created_at"] = self.get_timestamp()
         warehouse["updated_at"] = self.get_timestamp()
-        self.data.append(warehouse)
+        self.warehouses.append(warehouse)
         self.save()
 
     def update(self, warehouse_id, warehouse):
