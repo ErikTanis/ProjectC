@@ -2,6 +2,7 @@ from api.providers import repository_provider
 from base_controller import BaseController
 from api.models.item_lines import ItemLine
 
+
 class ItemLinesController(BaseController):
     def __init__(self) -> None:
         self.provider = repository_provider
@@ -15,7 +16,7 @@ class ItemLinesController(BaseController):
                 itemLineId = int(path[1])
                 self.get_by_id(handler, itemLineId)
             case 3:
-                if(path[2] == "items"):
+                if (path[2] == "items"):
                     itemLineId = int(path[1])
                     self.get_items_by_item_line_id(handler, itemLineId)
                 else:
