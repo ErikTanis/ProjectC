@@ -1,0 +1,14 @@
+pytest==6.2.5
+Faker==30.1.0
+atomicwrites==1.4.1
+attrs==24.2.0
+colorama==0.4.6
+iniconfig==2.0.0
+packaging==24.1
+pip==24.2
+pluggy==1.5.0
+py==1.11.0
+python-dateutil==2.9.0.post0
+six==1.16.0
+toml==0.10.2
+typing_extensions==4.12.2
