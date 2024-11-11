@@ -1,4 +1,4 @@
-from Refactor.api.providers import repository_provider
+from providers import repository_provider
 from repositories.base_repository import BaseRepository
 from models.shipments import Shipment
 

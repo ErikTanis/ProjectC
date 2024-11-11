@@ -1,4 +1,4 @@
-from api.providers import repository_provider
+from providers import repository_provider
 import json
 import http.server
 from models.orders import Order

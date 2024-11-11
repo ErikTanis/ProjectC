@@ -1,4 +1,4 @@
-from Refactor.api.providers import repository_provider
+from providers import repository_provider
 from repositories.base_repository import BaseRepository
 from models.orders import Order
 from models.items import Item
@@ -57,8 +57,8 @@ class OrdersRepository(BaseRepository):
             if not isinstance(item, Item):
                 raise TypeError("item must be an instance of Item")
         order = self.get_order(order_id)
-        current = order["items"]
-        for x in current:
+        current_order_items = order["items"]
+        for x in current_order_items:
             found = False
             for y in items:
                 if x["item_id"] == y["item_id"]:
@@ -78,7 +78,7 @@ class OrdersRepository(BaseRepository):
                     y["total_ordered"]
                 repository_provider.fetch_inventory_pool().update_inventory(
                     min_inventory["id"], min_inventory)
-        for x in current:
+        for x in current_order_items:
             for y in items:
                 if x["item_id"] == y["item_id"]:
                     inventories = repository_provider.fetch_inventory_pool(
