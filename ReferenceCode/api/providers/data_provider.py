@@ -11,9 +11,9 @@ from models.orders import Orders
 from models.clients import Clients
 from models.shipments import Shipments
 
-DEBUG = True
+DEBUG = False
 
-ROOT_PATH = "data/"
+ROOT_PATH = "./data/"
 
 _warehouses = None
 _locations = None
