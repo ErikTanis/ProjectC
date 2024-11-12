@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ProjectC.Models;
-using ProjectC.Services;
 
 namespace ProjectC.Controllers
 {
@@ -21,7 +20,7 @@ namespace ProjectC.Controllers
         public async Task<ActionResult<IEnumerable<Location>>> GetAll()
         {
             var locations = await _locationsService.GetAllAsync();
-            return Ok(locations);
+            return locations == null ? NotFound() : Ok(locations);
         }
 
         [HttpGet("{id}")]

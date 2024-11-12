@@ -18,6 +18,7 @@ public class Program
         builder.Services.AddScoped<IShipmentService, ShipmentService>();
         builder.Services.AddScoped<ISupplierService, SupplierService>();
         builder.Services.AddScoped<IClientService, ClientService>();
+        builder.Services.AddScoped<ILocationsService, LocationsService>();
 
         var app = builder.Build();
 
