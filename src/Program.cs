@@ -20,6 +20,7 @@ public class Program
         builder.Services.AddScoped<IClientService, ClientService>();
         builder.Services.AddScoped<ILocationsService, LocationsService>();
         builder.Services.AddScoped<IWarehouseService, WarehouseService>();
+        builder.Services.AddScoped<ITransferService, TransferService>();
 
         var app = builder.Build();
 
