@@ -14,6 +14,7 @@ public class DataContext : DbContext
     public DbSet<Supplier> Suppliers { get; set; }
     public DbSet<Inventory> Inventories { get; set; }
     public DbSet<Location> Locations { get; set; }
+    public DbSet<Warehouse> Warehouses { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -24,6 +25,7 @@ public class DataContext : DbContext
         modelBuilder.Entity<Supplier>().ToTable("Suppliers");
         modelBuilder.Entity<Inventory>().ToTable("Inventories");
         modelBuilder.Entity<Location>().ToTable("Locations");
+        modelBuilder.Entity<Warehouse>().ToTable("Warehouses");
 
         modelBuilder.Entity<Order>()
             .HasMany(o => o.Items);
