@@ -5,22 +5,22 @@ namespace ProjectC.Models
     public class Warehouse
     {
         public int Id { get; set; }
-        public string Code { get; set; }
-        public string Name { get; set; }
-        public string Address { get; set; }
-        public string Zip { get; set; }
-        public string City { get; set; }
-        public string Province { get; set; }
-        public string Country { get; set; }
-        public Contact Contact { get; set; }
-        public DateTime CreatedAt { get; set; }
-        public DateTime UpdatedAt { get; set; }
+        public required string Code { get; set; }
+        public required string Name { get; set; }
+        public required string Address { get; set; }
+        public required string Zip { get; set; }
+        public required string City { get; set; }
+        public required string Province { get; set; }
+        public required string Country { get; set; }
+        public required Contact Contact { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
+        public DateTime UpdatedAt { get; set; } = DateTime.Now;
     }
 
     public class Contact
     {
-        public string ContactName { get; set; }
-        public string ContactEmail { get; set; }
-        public string ContactPhone { get; set; }
+        public required string ContactName { get; set; }
+        public required string ContactEmail { get; set; }
+        public required string ContactPhone { get; set; }
     }
 }
