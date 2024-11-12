@@ -4,7 +4,7 @@ namespace ProjectC.Models
 {
     public class Warehouse
     {
-        public int Id { get; set; }
+        public required int Id { get; set; }
         public required string Code { get; set; }
         public required string Name { get; set; }
         public required string Address { get; set; }
