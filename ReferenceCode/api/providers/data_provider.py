@@ -13,7 +13,7 @@ from models.shipments import Shipments
 
 DEBUG = True
 
-ROOT_PATH = "test_data/"
+ROOT_PATH = "data/"
 
 _warehouses = None
 _locations = None
