@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ProjectC.Models;
 using ProjectC.Services;
@@ -11,22 +12,22 @@ namespace ProjectC.Controllers
     {
         private readonly LocationsService _locationsService;
 
-        public LocationsController()
+        public LocationsController(LocationsService locationsService)
         {
-            _locationsService = new LocationsService();
+            _locationsService = locationsService;
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Location>> GetAll()
+        public async Task<ActionResult<IEnumerable<Location>>> GetAll()
         {
-            var locations = _locationsService.GetAll();
+            var locations = await _locationsService.GetAllAsync();
             return Ok(locations);
         }
 
         [HttpGet("{id}")]
-        public ActionResult<Location> GetById(int id)
+        public async Task<ActionResult<Location>> GetById(int id)
         {
-            var location = _locationsService.GetById(id);
+            var location = await _locationsService.GetByIdAsync(id);
             if (location == null)
             {
                 return NotFound();
@@ -35,35 +36,35 @@ namespace ProjectC.Controllers
         }
 
         [HttpPost]
-        public ActionResult<Location> Add([FromBody] Location location)
+        public async Task<ActionResult<Location>> Add([FromBody] Location location)
         {
-            _locationsService.Add(location);
+            await _locationsService.AddAsync(location);
             return CreatedAtAction(nameof(GetById), new { id = location.Id }, location);
         }
 
         [HttpPut("{id}")]
-        public IActionResult Update(int id, [FromBody] Location location)
+        public async Task<IActionResult> Update(int id, [FromBody] Location location)
         {
-            var existingLocation = _locationsService.GetById(id);
+            var existingLocation = await _locationsService.GetByIdAsync(id);
             if (existingLocation == null)
             {
                 return NotFound();
             }
 
-            _locationsService.Update(id, location);
+            await _locationsService.UpdateAsync(id, location);
             return NoContent();
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var location = _locationsService.GetById(id);
+            var location = await _locationsService.GetByIdAsync(id);
             if (location == null)
             {
                 return NotFound();
             }
 
-            _locationsService.Remove(id);
+            await _locationsService.RemoveAsync(id);
             return NoContent();
         }
     }

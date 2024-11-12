@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using ProjectC.Models;
 
 public class DataContext : DbContext
 {
@@ -12,6 +13,7 @@ public class DataContext : DbContext
     public DbSet<Item> Items { get; set; }
     public DbSet<Supplier> Suppliers { get; set; }
     public DbSet<Inventory> Inventories { get; set; }
+    public DbSet<Location> Locations { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -21,13 +23,12 @@ public class DataContext : DbContext
         modelBuilder.Entity<Item>().ToTable("Items");
         modelBuilder.Entity<Supplier>().ToTable("Suppliers");
         modelBuilder.Entity<Inventory>().ToTable("Inventories");
+        modelBuilder.Entity<Location>().ToTable("Locations");
 
         modelBuilder.Entity<Order>()
             .HasMany(o => o.Items);
 
         modelBuilder.Entity<Shipment>()
             .HasMany(s => s.Items);
-
-
     }
 }

@@ -1,55 +1,60 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using ProjectC.Models;
 
 namespace ProjectC.Services
 {
-    public class LocationsService
+    public class LocationsService(DataContext context)
     {
-        private readonly List<Location> _locations;
+        private readonly DataContext _context = context;
 
-        public LocationsService()
+        public async Task<IEnumerable<Location>> GetAllAsync()
         {
-            _locations = new List<Location>();
-            // Seed data can be added here if needed
+            return await _context.Locations.ToListAsync();
         }
 
-        public IEnumerable<Location> GetAll()
+        public async Task<Location> GetByIdAsync(int id)
         {
-            return _locations;
+            var location = await _context.Locations.FindAsync(id);
+            if (location == null)
+            {
+                throw new KeyNotFoundException($"Location with id {id} not found.");
+            }
+            return location;
         }
 
-        public Location GetById(int id)
-        {
-            return _locations.FirstOrDefault(location => location.Id == id)!;
-        }
-
-        public void Add(Location location)
+        public async Task AddAsync(Location location)
         {
             location.CreatedAt = DateTime.UtcNow;
             location.UpdatedAt = DateTime.UtcNow;
-            _locations.Add(location);
+            await _context.Locations.AddAsync(location);
+            await _context.SaveChangesAsync();
         }
 
-        public void Update(int id, Location updatedLocation)
+        public async Task UpdateAsync(int id, Location updatedLocation)
         {
-            var location = GetById(id);
+            var location = await GetByIdAsync(id);
             if (location != null)
             {
                 location.Code = updatedLocation.Code;
                 location.Name = updatedLocation.Name;
                 location.WarehouseId = updatedLocation.WarehouseId;
                 location.UpdatedAt = DateTime.UtcNow;
+                _context.Locations.Update(location);
+                await _context.SaveChangesAsync();
             }
         }
 
-        public void Remove(int id)
+        public async Task RemoveAsync(int id)
         {
-            var location = GetById(id);
+            var location = await GetByIdAsync(id);
             if (location != null)
             {
-                _locations.Remove(location);
+                _context.Locations.Remove(location);
+                await _context.SaveChangesAsync();
             }
         }
     }
