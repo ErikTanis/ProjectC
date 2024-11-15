@@ -24,6 +24,16 @@ public class Program
         builder.Services.AddScoped<IItemLinesService, ItemLinesService>();
         builder.Services.AddScoped<IItemTypeService, ItemTypeService>();
 
+        builder.Services.AddCors(options =>
+        {
+            options.AddPolicy("AllowAllOrigins", builder =>
+            {
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+            });
+        });
+
         var app = builder.Build();
 
         if (app.Environment.IsDevelopment())
@@ -33,10 +43,25 @@ public class Program
         }
 
         app.UseHttpsRedirection();
+        app.UseCors("AllowAllOrigins");
 
+        /*
+            TODO: Fix api key validation
+        */
+        app.Use((context, next) =>
+        {
+            if(context.Request.Headers.ContainsKey("API_KEY")){
+                var key = context.Request.Headers["API_KEY"];
+                if(key == "a1b2c3b4"){
+                    return next();
+                }
+            }
+            context.Response.StatusCode = 401;
+            return Task.CompletedTask;
+                        
+        });
 
         app.Run();
     }
 
 }
-

@@ -45,6 +45,7 @@ public class OrderService : IOrderService
 
     public async Task EditOrderItems(string OrderId, IEnumerable<Inventory> OrderItems)
     {
+        return;
         var order = await _context.Orders.FindAsync(OrderId);
         if (order == null)
         {
@@ -95,8 +96,8 @@ public class OrderService : IOrderService
                 var minInventory = inventories.OrderBy(inv => inv.TotalAllocated).FirstOrDefault();
                 if (minInventory != null)
                 {
-                    throw new NotImplementedException("Error in reference code: bespreken met docent");
-                    minInventory.TotalAllocated += orderItem.Amount - currentItem.Amount;
+                    throw new Exception("Error in reference code: bespreken met docent");
+                    //minInventory.TotalAllocated += orderItem.Amount - currentItem.Amount;
                     minInventory.TotalExpected = minInventory.TotalOnHand + minInventory.TotalOrdered;
                     _context.Inventories.Update(minInventory);
                 }
@@ -119,8 +120,6 @@ public class OrderService : IOrderService
         await _context.SaveChangesAsync();
     }
 
-
-
 }
 
 public interface IOrderService
@@ -131,7 +130,7 @@ public interface IOrderService
     Task<IEnumerable<ItemInfo>?> GetOrderItems(string OrderId);
     Task AddOrder(Order order);
     Task EditOrder(string OrderId, Order order);
-    Task EditOrderItems(string OrderId, IEnumerable<ItemInfo> OrderItems);
+    //Task EditOrderItems(string OrderId, IEnumerable<ItemInfo> OrderItems);
     Task DeleteOrder(string OrderId);
 
 

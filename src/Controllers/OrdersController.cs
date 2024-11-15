@@ -59,7 +59,7 @@ public class OrdersController : ControllerBase
     [HttpPut("{order_id}/items")]
     [ProducesResponseType(204)]
     public async Task<IActionResult> EditOrderItems(string order_id, [FromBody] IEnumerable<ItemInfo> items){
-        await _orderService.EditOrderItems(order_id, items);
+        //await _orderService.EditOrderItems(order_id, items);
         return NoContent();
     }
 
