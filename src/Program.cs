@@ -33,6 +33,9 @@ public class Program
                        .AllowAnyHeader();
             });
         });
+        builder.Services.AddScoped<ILocationService, LocationsService>();
+        builder.Services.AddScoped<IWarehouseService, WarehouseService>();
+        builder.Services.AddScoped<ITransferService, TransferService>();
 
         var app = builder.Build();
 
