@@ -1,0 +1,55 @@
+name: Deploy and Start Servers
+
+on:
+  push:
+    branches:
+      - main  # Trigger this workflow only for pushes to the main branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the repository
+      - name: Checkout code
+        uses: actions/checkout@v4.2.2
+
+      # Step 2: Set up SSH
+      - name: Setup SSH
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.VPS_SSH_KEY }}
+
+      # Step 3: Deploy and Start Servers
+      - name: Deploy and Start Python and C# Apps
+        env:
+          HOST: ${{ secrets.VPS_HOST }}
+          USER: ${{ secrets.VPS_USER }}
+        run: |
+          ssh -o StrictHostKeyChecking=no $USER@$HOST << 'EOF'
+            # Navigate to the deployment directory on the VPS
+            cd ~/ProjectC
+
+            # Pull the latest changes from the main branch
+            git pull origin main
+
+            # ----- Python App Deployment -----
+            # Navigate to the Python app directory
+            cd ReferenceCode/api
+            # (Optional) Set up virtual environment and install dependencies
+            python3 -m venv venv
+            source venv/bin/activate
+            pip install -r requirements.txt
+            # Start or restart the Python server
+            pkill -f main.py || true
+            nohup python3 main.py > ../../python_server.log 2>&1 &
+
+            # ----- C# App Deployment -----
+            # Navigate back to the root directory
+            cd ../../src
+            # Build the C# project
+            dotnet build Program.csproj --configuration Release
+            # Start or restart the C# server
+            pkill -f Program.dll || true
+            nohup dotnet bin/Release/net6.0/Program.dll > ../csharp_server.log 2>&1 &
+          EOF
