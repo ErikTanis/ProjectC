@@ -9,6 +9,8 @@ public class Program
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
 
+        builder.Services.AddControllers();
+
         builder.Services.AddDbContext<DataContext>(options =>
         {
             options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
@@ -47,6 +49,9 @@ public class Program
 
         app.UseHttpsRedirection();
         app.UseCors("AllowAllOrigins");
+
+        app.UseAuthorization();
+        app.MapControllers();
 
         /*
             TODO: Fix api key validation
