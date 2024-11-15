@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 
 [ApiController]
-[Route("api/v1/suppliers")]
+[Route("api/v2/suppliers")]
 public class SuppliersController : ControllerBase
 {
 

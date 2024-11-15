@@ -18,6 +18,11 @@ public class Program
         builder.Services.AddScoped<IShipmentService, ShipmentService>();
         builder.Services.AddScoped<ISupplierService, SupplierService>();
         builder.Services.AddScoped<IClientService, ClientService>();
+        builder.Services.AddScoped<IInventoryService, InventoryService>();
+        builder.Services.AddScoped<IItemService, ItemService>();
+        builder.Services.AddScoped<IItemGroupService, ItemGroupService>();
+        builder.Services.AddScoped<IItemLinesService, ItemLinesService>();
+        builder.Services.AddScoped<IItemTypeService, ItemTypeService>();
 
         var app = builder.Build();
 

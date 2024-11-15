@@ -12,6 +12,9 @@ public class DataContext : DbContext
     public DbSet<Item> Items { get; set; }
     public DbSet<Supplier> Suppliers { get; set; }
     public DbSet<Inventory> Inventories { get; set; }
+    public DbSet<ItemGroup> ItemGroups { get; set; }
+    public DbSet<ItemLine> ItemLines { get; set; }
+    public DbSet<ItemType> ItemTypes { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -21,6 +24,9 @@ public class DataContext : DbContext
         modelBuilder.Entity<Item>().ToTable("Items");
         modelBuilder.Entity<Supplier>().ToTable("Suppliers");
         modelBuilder.Entity<Inventory>().ToTable("Inventories");
+        modelBuilder.Entity<ItemGroup>().ToTable("ItemGroups");
+        modelBuilder.Entity<ItemLine>().ToTable("ItemLines");
+        modelBuilder.Entity<ItemType>().ToTable("ItemTypes");
 
         modelBuilder.Entity<Order>()
             .HasMany(o => o.Items);
