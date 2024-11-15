@@ -61,10 +61,13 @@ public class Program
             if(context.Request.Headers.ContainsKey("API_KEY")){
                 var key = context.Request.Headers["API_KEY"];
                 if(key == "a1b2c3b4"){
-                    return next();
+                    next.Invoke();
+                    Console.WriteLine($"{context.Request.Path} {context.Response.StatusCode}");
+                    return Task.CompletedTask;
                 }
             }
             context.Response.StatusCode = 401;
+            Console.WriteLine($"{context.Request.Path} {context.Response.StatusCode}");
             return Task.CompletedTask;
                         
         });
