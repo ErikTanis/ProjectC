@@ -64,7 +64,7 @@ public class Program
                         
         });
 
-        app.Run();
+        app.Run("http://localhost:8000");
     }
 
 }
